@@ -4,6 +4,8 @@ GO
 /*
  * Rencontres où un titre a été interprété.
 **/
+DECLARE @titre VARCHAR(50) = 'Janie Jones'
+
 SELECT CONCAT (
 		[airDeJava].[dbo].[RENCONTRE].[NMREN],
 		' de ',
@@ -20,7 +22,7 @@ INNER JOIN [airDeJava].[dbo].[PASSAGE]
 	ON [PASSAGE].[PASSID] = [REPRESENTATION].[PASSID]
 INNER JOIN [airDeJava].[dbo].[RENCONTRE]
 	ON [RENCONTRE].[CDREN] = [PASSAGE].[CDREN]
-WHERE [airDeJava].[dbo].[TITRE _ CHANSON].[NMTITRE] = ''
+WHERE [airDeJava].[dbo].[TITRE _ CHANSON].[NMTITRE] = @titre
 GROUP BY [airDeJava].[dbo].[RENCONTRE].[NMREN],
 	[airDeJava].[dbo].[RENCONTRE].[DATDEBREN],
 	[airDeJava].[dbo].[RENCONTRE].[DATFINREN],

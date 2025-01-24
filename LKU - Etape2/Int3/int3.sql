@@ -4,6 +4,9 @@ GO
 /*
  * Membres ayant une spécialité donnée pour une rencontre donnée.
 **/
+DECLARE @specialite VARCHAR(20) = 'soliste'
+DECLARE @rencontre VARCHAR(20) = 'CAP FESTIVAL'
+
 SELECT CONCAT (
 		[airDeJava].[dbo].[CIVILITE].[LIBCIV],
 		' ',
@@ -20,9 +23,10 @@ INNER JOIN [airDeJava].[dbo].[PERSONNE]
 	ON [PERSONNE].[PERCD] = [SPE].[PERCD]
 INNER JOIN [airDeJava].[dbo].[CIVILITE]
 	ON [CIVILITE].[CDCIV] = [PERSONNE].[CDCIV]
-WHERE [airDeJava].[dbo].[SPECIALITE].[NMSPE] = ''
-	AND [airDeJava].[dbo].[RENCONTRE].[NMREN] = ''
+WHERE [airDeJava].[dbo].[SPECIALITE].[NMSPE] = @specialite
+	AND [airDeJava].[dbo].[RENCONTRE].[NMREN] = @rencontre
 GROUP BY [airDeJava].[dbo].[CIVILITE].[LIBCIV],
 	[airDeJava].[dbo].[PERSONNE].[PERPR],
 	[airDeJava].[dbo].[PERSONNE].[PERNM]
 GO
+
