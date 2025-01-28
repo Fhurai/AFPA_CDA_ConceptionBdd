@@ -19,12 +19,13 @@ BEGIN
 END
 GO
 
+/* Exécution de la procédure pour le groupe n°1 */
 EXEC prc_grp_nn_prtcptn 1
 GO
 
 /*Renvoie le dernier numéro de
 rencontre insérée*/
-ALTER PROCEDURE [dbo].[prc_lst_rncntr]
+CREATE PROCEDURE [dbo].[prc_lst_rncntr]
 	@id INT OUTPUT
 AS
 BEGIN
@@ -34,6 +35,7 @@ BEGIN
 END
 GO
 
+/* Exécution de la procédure pour obtenir le dernier identifiant inséré dans la variable @last qui est utilisée ensuite pour l'affichage du résultat. */
 DECLARE @last INT
 
 EXEC prc_lst_rncntr @last OUTPUT

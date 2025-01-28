@@ -1,8 +1,9 @@
 1. Création Connexion/Utilisateur
-	1.1 Donner un nom d'accès et une authentification SQL Server (gestGroupes / ecf2025)
-	1.2 Donner accès uniquement à la base de données airDeJava
+	1.1 Ouvrir le menu de création d'une connexion/d'un utilisateur.
+	1.2 Donner un nom d'accès et une authentification SQL Server (gestGroupes / ecf2025).
+	1.3 Donner accès uniquement à la base de données airDeJava.
 
 2. Permissions Connexion/Utilisateur
-	2.1 Cliquer sur les propriétés de la table GROUPE
+	2.1 Cliquer sur les propriétés de la table GROUPE.
 	2.2 Ajouter nouvel utilisateur dans la liste des utilisateurs avec autorisations.
 	2.3 Donner les autorisations d'affichage de la table, de lecture, d'insertion, de mise à jour et de suppression d'enregistrement.

@@ -30,8 +30,10 @@ BEGIN
 					/* Cas Juin - Weekend avant le 15, tous les jours après le 15.*/
 			WHEN @month = 6
 				THEN CASE 
+						/* Tous les jours */
 						WHEN @day >= 15
 							THEN 1
+						/* Week end seulement */
 						ELSE CASE 
 								WHEN @dw = 5
 									THEN CASE 
@@ -52,8 +54,10 @@ BEGIN
 					/* Cas Juin - Tous les jours avant le 15, weekend après le 15.*/
 			WHEN @month = 9
 				THEN CASE 
+						/* Tous les jours */
 						WHEN @day <= 15
 							THEN 1
+						/* Week end seulement */
 						ELSE CASE 
 								WHEN @dw = 5
 									THEN CASE 
@@ -72,7 +76,7 @@ BEGIN
 								END
 						END
 			ELSE
-				/* Cas normal - Vendredi apres 18h, Samedi & Dimanche avant 12h.*/
+				/* Cas normal - Week end - Vendredi apres 18h, Samedi & Dimanche avant 12h.*/
 				CASE 
 					WHEN @dw = 5
 						THEN CASE 
@@ -93,22 +97,21 @@ BEGIN
 END
 GO
 
-SELECT 'Vendredi avant 17h, hors période estivale',
+SELECT 'Vendredi avant 17h, hors période estivale' as 'Cas de test',
 	[dbo].[fn_ctrl_debut_rencontre]('13-06-2025 17:30:00') AS 'Début festival autorisé' -- false(0).
 
 UNION
 
-SELECT 'Mardi à toute heure, en période estivale',
+SELECT 'Mardi à toute heure, en période estivale' as 'Cas de test',
 	[dbo].[fn_ctrl_debut_rencontre]('17-06-2025 16:30:00') AS 'Début festival autorisé' -- true(1). 
 
 UNION
 
-SELECT 'Dimanche après 12h, hors période estivale',
+SELECT 'Dimanche après 12h, hors période estivale' as 'Cas de test',
 	[dbo].[fn_ctrl_debut_rencontre]('05-01-2025 23:30:00') AS 'Début festival autorisé' -- false(0).
 
 UNION
 
-SELECT 'Vendredi après 17h, hors période estivale',
+SELECT 'Vendredi après 17h, hors période estivale' as 'Cas de test',
 	[dbo].[fn_ctrl_debut_rencontre]('17-01-2025 23:30:00') AS 'Début festival autorisé' -- true(1).
 GO
-

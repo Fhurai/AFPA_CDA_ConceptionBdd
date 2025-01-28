@@ -1,0 +1,4 @@
+1. Ouverture fenêtre de sauvegarde.
+2. Choix de la source avec le type de sauvegarde (Complète) & Choix du composant de sauvegarde (Base de données).
+3. Choix du remplacement de support avec la sauvegarde sur le support existant (Remplacer tous les jeux de sauvegarde existants) & Choix de vérifier la sauvegarde en fin d'opération pour la fiabilité.
+4. Pour le jeu de sauvegarde, établir un nom et aucune expiration.

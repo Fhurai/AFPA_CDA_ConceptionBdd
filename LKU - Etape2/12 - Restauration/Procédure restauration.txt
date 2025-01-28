@@ -1,0 +1,3 @@
+1. Ouverture fenêtre de restauration.
+2. Choix de la base de donnée et du jeu de sauvegarde à utiliser.
+3 Bien cocher la case associée au remplacement de la base de données existante.

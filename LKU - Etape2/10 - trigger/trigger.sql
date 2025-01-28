@@ -1,24 +1,29 @@
 /*Suppression groupe*/
-ALTER TRIGGER [dbo].[deleteGroupTrigger] ON [airDeJava].[dbo].[GROUPE]
+CREATE TRIGGER [dbo].[deleteGroupTrigger] ON [airDeJava].[dbo].[GROUPE]
 INSTEAD OF DELETE
 AS
 BEGIN
+	/* Déclaration des variables. */
 	DECLARE @idGroup INT
 	DECLARE @idPass INT
 
-	/* Récupération du (ou des) groupe(s) supprimé(s)*/
+	/* Déclaration des groupes supprimés lors de la requête de suppression dans un curseur. */
 	DECLARE groupes CURSOR LOCAL FORWARD_ONLY READ_ONLY
 	FOR
 	SELECT CDGROUP
 	FROM deleted
 
+	/* Ouverture du curseur. */
 	OPEN groupes
 
 	BEGIN TRY
+
+		/* Récupération de la première ligne de résultats. */
 		FETCH NEXT
 		FROM groupes
 		INTO @idGroup
 
+		/* Tant qu'une ligne de résultats existe. */
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
 			/* Suppression EST MEMBRE DE.*/
@@ -58,54 +63,60 @@ BEGIN
 			FROM [dbo].[GROUPE]
 			WHERE [CDGROUP] = @idGroup
 
+			/* Récupération de la prochaine ligne de résultats. */
 			FETCH NEXT
 			FROM groupes
 			INTO @idGroup
 		END
 
+		/* Fermeture du curseur. */
 		CLOSE groupes
 
+		/* Nettoyage mémoire du curseur. */
 		DEALLOCATE groupes
 	END TRY
 
 	BEGIN CATCH
+		/* Fermeture du curseur. */
 		CLOSE groupes
 
+		/* Nettoyage mémoire du curseur. */
 		DEALLOCATE groupes
 
+		/* Avertissement de l'utilisateur qu'un ROLLBACK a eu lieu. */
 		PRINT 'ROLLBACK'
 
+		/* ROLLBACK de la transaction liée au trigger. */
 		ROLLBACK TRANSACTION
 	END CATCH
 END
 GO
 
-/* Test trigger */
-DELETE
-FROM [GROUPE]
-WHERE CDGROUP = 4
-GO
-
 /*Suppression d'une oeuvre*/
-ALTER TRIGGER [dbo].[DeleteOeuvreTrigger] ON [airDeJava].[dbo].[TITRE _ CHANSON]
+CREATE TRIGGER [dbo].[DeleteOeuvreTrigger] ON [airDeJava].[dbo].[TITRE _ CHANSON]
 INSTEAD OF DELETE
 AS
 BEGIN
+	/* Déclaration des variables. */
 	DECLARE @idTitre INT
 
-	/* Récupération du (ou des) groupe(s) supprimé(s)*/
+	/* Déclaration des oeuvres supprimés lors de la requête de suppression dans un curseur. */
 	DECLARE titres CURSOR LOCAL FORWARD_ONLY READ_ONLY
 	FOR
 	SELECT CDTITRE
 	FROM deleted
 
+	/* Ouverture du curseur. */
 	OPEN titres
 
 	BEGIN TRY
+
+		/* Récupération de la première ligne de résultats. */
 		FETCH NEXT
 		FROM titres
 		INTO @idTitre
 
+		/* Tant qu'une ligne de résultats existe. */
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
 			/* Suppression REPERTORIE. */
@@ -133,30 +144,43 @@ BEGIN
 			FROM [dbo].[TITRE _ CHANSON]
 			WHERE [CDTITRE] = @idTitre
 
+			/* Récupération de la prochaine ligne de résultats. */
 			FETCH NEXT
 			FROM titres
 			INTO @idTitre
 		END
 
+		/* Fermeture du curseur. */
 		CLOSE titres
 
+		/* Nettoyage mémoire du curseur. */
 		DEALLOCATE titres
 	END TRY
 
 	BEGIN CATCH
+		/* Fermeture du curseur. */
 		CLOSE titres
 
+		/* Nettoyage mémoire du curseur. */
 		DEALLOCATE titres
 
+		/* Avertissement de l'utilisateur qu'un ROLLBACK a eu lieu. */
 		PRINT 'ROLLBACK'
 
+		/* ROLLBACK de la transaction liée au trigger. */
 		ROLLBACK TRANSACTION
 	END CATCH
 END
 GO
 
 /* Test trigger */
-DELETE
-FROM [TITRE _ CHANSON]
-WHERE CDTITRE = 4
-GO
+--DELETE
+--FROM [GROUPE]
+--WHERE CDGROUP = 4
+--GO
+
+/* Test trigger */
+--DELETE
+--FROM [TITRE _ CHANSON]
+--WHERE CDTITRE = 4
+--GO
